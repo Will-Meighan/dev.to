@@ -410,6 +410,7 @@ Rails.application.routes.draw do
   get "/:username/:view" => "stories#index",
       :constraints => { view: /comments|moderate|admin/ }
   get "/:username/:slug" => "stories#show"
+  # since we decided the videos would live on the article page (after the user clicks sn article) this is the route we need to follow. "#stories#show" indicates that the program is going to find the StoriesController and the execute the show method.
   get "/:username" => "stories#index"
 
   root "stories#index"
