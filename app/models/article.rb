@@ -677,4 +677,12 @@ class Article < ApplicationRecord
   def async_bust
     Articles::BustCacheWorker.perform_async(id)
   end
+
+  ## Since we are manipulating an article object in the view, we need
+  ## to use this model to create a method that will create the videos
+  ## to be embedded. My initial thought is to use active record to
+  ## find related youtube videos using the youtube api to return those
+  ## videos as an array, which can then be iterated over in the view. Dan
+  ## can assist with the display, but we will need to provide him with
+  ## the array of youtube objects. Will need to create YouTube service.
 end
