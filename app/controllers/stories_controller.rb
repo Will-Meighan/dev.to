@@ -34,7 +34,10 @@ class StoriesController < ApplicationController
   end
 
   def show
+    # program is first changing the value of @story_show to true. @story_show links back to the html_varients_controller, which I am not entirely positive on what that does.
     @story_show = true
+
+    # this is basically saying that if the article exists, execute handle_article_show. handle_article_show essentially just renders the desired view ("articles/show")
     if (@article = Article.find_by(path: "/#{params[:username].downcase}/#{params[:slug]}")&.decorate)
       handle_article_show
     elsif (@article = Article.find_by(slug: params[:slug])&.decorate)
@@ -215,6 +218,7 @@ class StoriesController < ApplicationController
   end
 
   def handle_article_show
+    # helper method
     assign_article_show_variables
     set_surrogate_key_header @article.record_key
     redirect_if_show_view_param
