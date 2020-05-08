@@ -9,25 +9,32 @@
             integrity="sha256-xOIPU/XvDtRLeDQ3qj9GOKmlbMSqKa6D7ZIS6ygHBSo="
             crossorigin="anonymous" defer></script>
     <script defer>
+    // Asynchronous for displaying ads, an npm package
+  // need to know what ltag_gist-liquid-tag array looks like here. for loop is iterating over something that I dont know
       var waitingOnPostscribe = setInterval(function () {
         if (typeof (postscribe) === "function") {
           clearInterval(waitingOnPostscribe);
+          // below createss an array of html elements
           var els = document.getElementsByClassName("ltag_gist-liquid-tag");
+          // loop over each html element in the arary
           for (var i = 0; i < els.length; i++) {
+            //current === current html element in iteration
             var current = els[i];
+            // need to know what postscribe and beforeWrite methods do
             postscribe(current, current.firstElementChild.outerHTML, {
               beforeWrite: function (context) {
+                //returns text of something or an empty string
                 return function (text) {
                   if (context.childElementCount > 3) {
                     return "";
                   }
                   return text;
                 }
-              }(current)
+              }(current) //not sure of this syntax
             });
           }
         }
-      }, 500)
+      }, 500) //interval time count
     </script>
   <% end %>
 
@@ -69,7 +76,10 @@
   <% end %>
 <% end %>
 
+
+
 <div class="home">
+# This is the article being displayed when a user clicks on a article from the article feed.
   <div
     class="container article"
     id="article-show-container"
@@ -98,6 +108,7 @@
             <em style="display: inline-block;">Click to edit.</em>
           </a>
         <% end %>
+        # displays image at top or a video if there is one
         <% if @article.video.present? %>
           <%= render "articles/video_player", meta_tags: true, article: @article %>
         <% elsif @article.main_image.present? %>
@@ -107,7 +118,7 @@
           <div class="blank-space"></div>
         <% end %>
       </section>
-      <header class="title" id="main-title">
+      <header class="title" id="main-title"> # title of article hearder area
         <% if @organization %>
           <a href="<%= @organization.path %>" class="org-branded-title-link">
             <div class="org-branded-title">
@@ -126,6 +137,7 @@
               <span itemprop="name"><%= @user.name %></span>
             </a>
           </span>
+          # displays external sites logos and links to navigate to them
           <% if @user.twitter_username.present? %>
             <a href="http://twitter.com/<%= @user.twitter_username %>"><%= image_tag_or_inline_svg_tag "twitter", width: 18, height: 18 %></a>
           <% end %>
@@ -199,6 +211,7 @@
     <% suggested_articles = ArticleSuggester.new(@article).articles(max: 4) %>
     <%= render "articles/bottom_content", articles: suggested_articles %>
   <% end %>
+  # Create a div here to contain the youtube videos
 </div>
 
 <% stick_nav_cache_key = "sticky-sidebar-#{@article.id}-#{(@organization || @user).profile_updated_at}-#{(@organization || @user).last_article_at}-#{@variant_number}-#{(@organization || @user).pro?}" %>

@@ -409,6 +409,7 @@ Rails.application.routes.draw do
   get "/:username/:slug/stats" => "articles#stats"
   get "/:username/:view" => "stories#index",
       :constraints => { view: /comments|moderate|admin/ }
+      # below is the URL we want to display the videos at
   get "/:username/:slug" => "stories#show"
   get "/:username" => "stories#index"
 

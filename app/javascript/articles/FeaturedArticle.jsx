@@ -68,7 +68,10 @@ export const FeaturedArticle = ({
         </a>
         <div className="featured-user-name">
           <a href="/<%= article.cached_user.username %>">
-            {article.user.name} ・{' '}
+            {article.user.name}
+            {' '}
+            ・
+            {' '}
             <time dateTime={article.published_timestamp}>
               {article.readable_publish_date}
             </time>
