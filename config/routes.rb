@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   namespace :internal do
     get "/", to: redirect("/internal/articles")
 
+    # the route for the show page we will be changing
     resources :articles, only: %i[index show update]
     resources :broadcasts, only: %i[index new create edit update]
     resources :buffer_updates, only: %i[create update]
@@ -399,7 +400,7 @@ Rails.application.routes.draw do
   get "/:username/comment/:id_code/delete_confirm" => "comments#delete_confirm"
   get "/:username/comment/:id_code/mod" => "moderations#comment"
   get "/:username/comment/:id_code/settings", to: "comments#settings"
-
+  # this also links to stories#show
   get "/:username/:slug/:view" => "stories#show",
       :constraints => { view: /moderate/ }
   get "/:username/:slug/mod" => "moderations#article"
@@ -410,6 +411,8 @@ Rails.application.routes.draw do
   get "/:username/:view" => "stories#index",
       :constraints => { view: /comments|moderate|admin/ }
   get "/:username/:slug" => "stories#show"
+  # the above takes us to the stories controller show action, slug being article name
+  # this is where we will display the videos
   get "/:username" => "stories#index"
 
   root "stories#index"
