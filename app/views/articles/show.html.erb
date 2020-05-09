@@ -1,3 +1,7 @@
+<% # The title could be a keyword to use to find related videos. Do they have keywords
+# or tags on this page?
+
+# seems to be loading script %>
 <% title @article.title %>
 
 <%= render "shared/webcomponents_loader_script" %>
@@ -8,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js"
             integrity="sha256-xOIPU/XvDtRLeDQ3qj9GOKmlbMSqKa6D7ZIS6ygHBSo="
             crossorigin="anonymous" defer></script>
+   <% # apparently this is asynchronous for displaying ads through an npm package %>
     <script defer>
       var waitingOnPostscribe = setInterval(function () {
         if (typeof (postscribe) === "function") {
@@ -38,6 +43,7 @@
 
 <% if internal_navigation? %>
     <link rel="canonical" href="<%= @article.canonical_url.presence || "https://#{ApplicationConfig['APP_DOMAIN']}#{@article.path}" %>" />
+    #The description and keywords could be what we used to find related videos
     <meta name="description" content="<%= @article.description_and_tags %>">
     <meta name="keywords" content="<%= @article.cached_tag_list %>, software, coding, development, engineering, inclusive, community">
 <% else %>
@@ -70,6 +76,7 @@
 <% end %>
 
 <div class="home">
+  <% # this is where the article is %>
   <div
     class="container article"
     id="article-show-container"
@@ -186,6 +193,9 @@
     <%= render "articles/org_branding", organization: @organization %>
     <%= render "articles/full_comment_area" %>
   </div>
+  <% #Above section contains the main parts of the article and we will put the
+  # videos after it. %>
+
   <% cache("article-bottom-content-#{@article.id}", expires_in: 18.hours) do %>
     <% @classic_article = Suggester::Articles::Classic.new(@article, not_ids: [@article.id]).get.first %>
     <% if @classic_article %>
@@ -200,6 +210,7 @@
     <%= render "articles/bottom_content", articles: suggested_articles %>
   <% end %>
 </div>
+#Above contains classic articles if available
 
 <% stick_nav_cache_key = "sticky-sidebar-#{@article.id}-#{(@organization || @user).profile_updated_at}-#{(@organization || @user).last_article_at}-#{@variant_number}-#{(@organization || @user).pro?}" %>
 <% cache(stick_nav_cache_key, expires_in: 50.hours) do %>
@@ -217,6 +228,7 @@
     <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
   <% end %>
 <% end %>
+#renders video, tweet, or instagram media if available
 
 <% cache("article-show-scripts", expires_in: 8.hours) do %>
   <script async>
