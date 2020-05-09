@@ -1,3 +1,7 @@
+# article model will need attribute for related videos
+# so that when it is created in the controller that info is passed to view
+# will need an array that stores youtube video information
+
 class Article < ApplicationRecord
   include CloudinaryHelper
   include ActionView::Helpers
