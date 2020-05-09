@@ -34,7 +34,12 @@ class StoriesController < ApplicationController
   end
 
   def show
+    # from route of '/:username/:slug'
+    # assigning story_show a true value;
+    # @story_show links to html_varients_controller
     @story_show = true
+    # if article can be found using the given parameters,
+    # render the 'articles/show' view
     if (@article = Article.find_by(path: "/#{params[:username].downcase}/#{params[:slug]}")&.decorate)
       handle_article_show
     elsif (@article = Article.find_by(slug: params[:slug])&.decorate)
@@ -83,6 +88,9 @@ class StoriesController < ApplicationController
   end
 
   def handle_possible_redirect
+    # redirects the user to 'article/show' view if article is found
+    # after searching for the user and its articles
+    # otherwise it does something with the article's organization; yo no se
     potential_username = params[:username].tr("@", "").downcase
     @user = User.find_by("old_username = ? OR old_old_username = ?", potential_username, potential_username)
     if @user&.articles&.find_by(slug: params[:slug])
@@ -214,6 +222,7 @@ class StoriesController < ApplicationController
     redirect_to "/internal/articles/#{@article.id}" if params[:view] == "moderate"
   end
 
+  # this helper method sends us to the articles/show view
   def handle_article_show
     assign_article_show_variables
     set_surrogate_key_header @article.record_key
