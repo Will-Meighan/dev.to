@@ -47,4 +47,6 @@ RSpec.describe "articles/show", type: :view do
     expect(rendered).to have_css("form#new_comment")
     expect(rendered).to have_css("input#submit-button")
   end
+
+  ## it shows three relevant youtube videos
 end
