@@ -33,11 +33,15 @@ class StoriesController < ApplicationController
     render template: "articles/search"
   end
 
+  # This is the method that the model points to from the :/username:/slug get request
+  # The below method points to show.html.erb where the html lives and has conditionals on what to render.
   def show
     @story_show = true
+    # If an article can be found then render it otherwise do something
     if (@article = Article.find_by(path: "/#{params[:username].downcase}/#{params[:slug]}")&.decorate)
       handle_article_show
     elsif (@article = Article.find_by(slug: params[:slug])&.decorate)
+      # found on line 90
       handle_possible_redirect
     else
       @podcast = Podcast.available.find_by!(slug: params[:username])
@@ -82,6 +86,7 @@ class StoriesController < ApplicationController
     end
   end
 
+  # handles any redirects if article cannot be found via path and is found via slug instead
   def handle_possible_redirect
     potential_username = params[:username].tr("@", "").downcase
     @user = User.find_by("old_username = ? OR old_old_username = ?", potential_username, potential_username)
