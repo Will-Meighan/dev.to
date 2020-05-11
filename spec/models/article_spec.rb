@@ -674,4 +674,6 @@ RSpec.describe Article, type: :model do
       expect(feed_article.attributes.keys).to match_array(fields)
     end
   end
+
+  ## will need test if using active record in article model
 end
