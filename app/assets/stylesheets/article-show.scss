@@ -1508,9 +1508,23 @@ article {
   padding: 50% 30 50% 80;
 }
 
+.youtube-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+.yt-info {
+  opacity: 0;
+  width: .0001em;
+  height: 0;
+}
+
 .video-article {
   margin-bottom: 80px;
 }
+
 
 @keyframes fade-in {
   0% {
