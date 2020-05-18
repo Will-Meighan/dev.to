@@ -1,3 +1,37 @@
+# 1911 Mod 4 Dev.to Enhancement Project
+
+## Collaborators
+
+Will Meighan; https://github.com/Will-Meighan
+
+Elom Amouzou; https://github.com/eamouzou
+
+Dan Reardon; https://github.com/dreardon1021
+
+## User Story/MVP
+
+As a user,
+
+On the article show page,
+
+I should see three related youtube videos,
+
+that can be played without leaving the page,
+
+styled in an aesthetically pleasing format.
+
+## Description
+
+The backend developers, Will and Elom, were able to succesfully consume the Youtube API using the search function. We used a partial within the article show page to direct our code to the youtube view, where we then used fetch to begin the Youtube MVC function. We used the article keywords and tags as the parameters, and created a JSON object for the front end. 
+
+Dan, our front end developer, was able to manipulate the JSON object to disply the videos in an aesthetically pleasing format. He was able to utilize stylesheets and liquid tags to format the youtube videos. The youtube videos are playable directly from the article show page.
+
+## Setbacks
+
+The hardest aspect of this project for each of us was simply absorbing this monolithic code base and understanding where we would need to work and what we would need to do to get to our desired product. Once we were able to digest the code base, we felt pretty good about how to accomplish our goal. 
+
+The only spot we felt needed refactoring was our youtube API consumption. We were originally only using the article tags for the search function, but we felt we should incorporate the keywords as well to make the search more robust and dynamic, in case there were to ever be updated to the code base.  
+
 ## ERD
 
 Below is the flow chart of the code base we used and adjusted for our given
