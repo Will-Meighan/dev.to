@@ -16,7 +16,9 @@ On the article show page,
 
 I should see three related youtube videos,
 
-in an aesthetically pleasing format.
+that can be played without leaving the page,
+
+styled in an aesthetically pleasing format.
 
 ## Description
 
